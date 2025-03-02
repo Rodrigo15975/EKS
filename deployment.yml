@@ -22,7 +22,7 @@ spec:
     spec:
       containers:
         - name: MYAPP
-          image: MYAPP:latest
+          image: MYAPP:v1
           resources:
             requests:
               cpu: 100m
