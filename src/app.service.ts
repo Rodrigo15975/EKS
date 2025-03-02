@@ -6,6 +6,7 @@ export class AppService {
     return {
       message: 'ok',
       status: 200,
+      data: [],
     }
   }
 }
