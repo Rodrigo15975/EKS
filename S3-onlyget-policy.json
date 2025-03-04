@@ -1,0 +1,21 @@
+{
+  "Version": "2012-10-17", // Versión del lenguaje de políticas (siempre "2012-10-17").
+  "Statement": [ // Lista de declaraciones que definen los permisos.
+    {
+      "Effect": "Allow", // Permite las acciones especificadas.
+      "Action": "s3:ListAllMyBuckets", // Acción: listar todos los buckets S3.
+      "Resource": "*" // Aplica a todos los recursos (en este caso, todos los buckets S3).
+    },
+    {
+      "Effect": "Allow", // Permite las acciones especificadas.
+      "Action": [ // Lista de acciones permitidas.
+        "s3:ListBucket", // Listar el contenido de un bucket específico.
+        "s3:GetObject" // Leer objetos dentro de un bucket.
+      ],
+      "Resource": [ // Recursos afectados por estas acciones.
+        "arn:aws:s3:::mi-bucket", // El bucket S3 llamado "mi-bucket".
+        "arn:aws:s3:::mi-bucket/*" // Todos los objetos dentro del bucket "mi-bucket".
+      ]
+    }
+  ]
+}
