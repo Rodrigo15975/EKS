@@ -1,35 +1,50 @@
 apiVersion: external-secrets.io/v1beta1
-kind: ExternalSecret
+kind: SecretStore
 metadata:
-  name: my-secret
+  name: aws-secret-store
   namespace: default
 spec:
-  secretStoreRef:
-    name: aws-secret-store
-    kind: SecretStore
-  target:
-    name: my-k8s-secret
-  data:
-    - secretKey: access-key-id
-      remoteRef:
-        key: production/aws-credentials
-        property: access-key-id
-    - secretKey: secret-access-key
-      remoteRef:
-        key: production/aws-credentials
-        property: secret-access-key
+  provider:
+    aws:
+      service: SecretsManager
+      region: us-east-1
+      auth:
+        jwt:
+          serviceAccountRef:
+            name: external-secrets-sa
+            namespace: default
 # apiVersion: external-secrets.io/v1beta1
-# kind: SecretStore
+# kind: ExternalSecret
 # metadata:
-#   name: aws-secret-store
+#   name: my-secret
 #   namespace: default
 # spec:
-#   provider:
-#     aws:
-#       service: SecretsManager
-#       region: us-east-1
-#       auth:
-#         jwt:
-#           serviceAccountRef:
-#             name: external-secrets-sa
-#             namespace: default
+#   secretStoreRef:
+#     name: aws-secret-store
+#     kind: SecretStore
+#   target:
+#     name: my-k8s-secret
+#   data:
+#     - secretKey: access-key-id
+#       remoteRef:
+#         key: production/aws-credentials
+#         property: access-key-id
+#     - secretKey: secret-access-key
+#       remoteRef:
+#         key: production/aws-credentials
+#         property: secret-access-key
+# # apiVersion: external-secrets.io/v1beta1
+# # kind: SecretStore
+# # metadata:
+# #   name: aws-secret-store
+# #   namespace: default
+# # spec:
+# #   provider:
+# #     aws:
+# #       service: SecretsManager
+# #       region: us-east-1
+# #       auth:
+# #         jwt:
+# #           serviceAccountRef:
+# #             name: external-secrets-sa
+# #             namespace: default
