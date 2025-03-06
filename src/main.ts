@@ -6,5 +6,5 @@ async function bootstrap() {
   await app.listen(process.env.PORT ?? 3000)
 }
 bootstrap()
-  .then(() => console.log('Server started'))
+  .then(() => console.log('Server started', process.env.PORT))
   .catch(console.error)
