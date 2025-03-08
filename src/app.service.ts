@@ -6,7 +6,7 @@ export class AppService {
   getHello() {
     const example = new Task('title', 'description', true)
     return {
-      message: 'Hello World!',
+      message: 'Get data',
       status: 200,
       data: example,
     }
