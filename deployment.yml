@@ -1,0 +1,44 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nestjs-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: nestjs
+  template:
+    metadata:
+      labels:
+        app: nestjs
+    spec:
+      serviceAccountName: nestjs-sa
+      containers:
+        - name: nestjs
+          image: rodrigo15975/nestjs:v2
+          ports:
+            - containerPort: 3000
+          volumeMounts:
+            - name: secrets-store
+              mountPath: "/mnt/secrets-store"
+              readOnly: true
+      volumes:
+        - name: secrets-store
+          csi:
+            driver: secrets-store.csi.k8s.io
+            readOnly: true
+            volumeAttributes:
+              secretProviderClass: "aws-secrets"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: nestjs-service
+spec:
+  selector:
+    app: nestjs
+  ports:
+    - protocol: TCP
+      port: 3000
+      targetPort: 3000
+  type: LoadBalancer
